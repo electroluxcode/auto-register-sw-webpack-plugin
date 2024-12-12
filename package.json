@@ -1,9 +1,12 @@
 {
   "name": "auto-register-sw-webpack-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "src/index.js",
-  
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/electroluxcode/auto-register-sw-webpack-plugin"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
