@@ -1,0 +1,8 @@
+**/*.md
+**/*.svg
+**/*.html
+
+/coverage
+/scripts
+/node_modules
+

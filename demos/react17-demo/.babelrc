@@ -1,0 +1,26 @@
+{
+	"presets": [
+		"@babel/preset-react",
+		[
+			"@babel/preset-env",
+			{
+				"loose": true
+			}
+		]
+	],
+	"plugins": [
+		"macros",
+		[
+			"styled-components",
+			{
+				"ssr": true
+			}
+		],
+		[
+			"@babel/plugin-proposal-decorators",
+			{
+				"legacy": true
+			}
+		]
+	]
+}

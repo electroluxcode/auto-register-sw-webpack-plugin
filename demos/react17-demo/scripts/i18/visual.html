@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+        * {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            border: none;
+            text-decoration: none;
+            text-transform: capitalize;
+        }
+
+        body {
+            background-color: rgb(36, 33, 32);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 100px auto;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .container .main-container {
+            flex: 1 1 700px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
+            background-color: #fff;
+            padding: 15px;
+        }
+
+        .container .main-container .main-file {
+            margin-bottom: 7px;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .container .main-container .main-vid-title {
+            font-size: 20px;
+            color: #444;
+        }
+
+        .container .list-container {
+           
+            height: 485px;
+            overflow-y: scroll;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
+            background-color: #fff;
+            padding: 15px;
+        }
+
+    ::-webkit-scrollbar {
+            width: 10px;
+            height: 2px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 5px;
+        }
+
+        .container .list-container .list {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            background-color: #eee;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .container .list-container .list:last-child {
+            margin-bottom: 0;
+        }
+
+        .container .list-container .list.active {
+            background-color: #444;
+        }
+
+        .container .list-container .list.active .list-title {
+            color: #fff;
+        }
+
+        .container .list-container .list .list-file {
+            width: 400px;
+            min-width: 400px;
+            border-radius: 5px;
+            overflow: auto;
+        }
+
+        .container .list-container .list .list-title {
+            font-size: 17px;
+            color: #444;
+        }
+
+        @media (max-width:1200px) {
+            .container {
+                margin: 0;
+            }
+        }
+
+        @media (max-width:450px) {
+            .container .main-container .main-vid-title {
+                font-size: 15px;
+                text-align: center;
+            }
+
+            .container .list-container .list {
+                flex-flow: column;
+                gap: 10px;
+            }
+
+         
+
+            .container .list-container .list .list-title {
+                font-size: 15px;
+                text-align: center;
+            }
+        }
+        .list-title{
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="list-container">
+            <div class="list">
+                
+                <div class="list-file">文件名字 <span class="count-file"></span></div>
+                <h3 class="list-title">i18缺失的key <span class="count-key"></span></div></h3>
+            </div>
+        </div>
+    </div>
+    <!-- custom js file link  -->
+    <script>
+        let uni = {}
+        var url = "i18_output.json"
+        var request = new XMLHttpRequest();
+        request.open("get", url);
+        // 不发送数据到服务器
+        request.send(null);
+        request.onload = function () {
+            // 返回状态为200，即为数据获取成功
+            if (request.status == 200) {
+                var data = JSON.parse(request.responseText);
+                console.log(data);
+                let container = document.querySelector('.list-container');
+                let filterArr = data.filter((e) => {
+                    return e.isLostI18
+                })
+                document.querySelector(".count-file").innerHTML = `共${filterArr.length}个文件缺少数据`
+                // if (filterArr.length > 0)
+                let countKey = 0
+                filterArr.forEach((e) => {
+                    let div = document.createElement('div');
+                    div.classList.add('list');
+                    div.innerHTML = `
+                    <div class="list-file">${e.file}</div>
+                    <h3 class="list-title">${e.falseExistEntries.map( (e) => {
+                        uni[e.i18name + "/" + e.key] = true
+                        countKey ++
+                        return e.i18name + "(语言环境)/" + e.key + "(缺失key)"
+                    }).join(" , ")}</h3>
+                    `
+                    document.querySelector(".count-key").innerHTML = `共${Object.keys(uni).length}个key缺少数据`
+                    container.appendChild(div);
+                })
+            }
+        }
+
+    </script>
+</body>
+
+</html>

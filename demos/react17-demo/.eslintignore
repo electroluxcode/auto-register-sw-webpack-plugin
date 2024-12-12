@@ -1,0 +1,17 @@
+**/*.md
+**/*.svg
+**/*.html
+/scripts
+/src/plugins
+/node_modules
+/public
+/src/components/Mind/runtime
+/src/components/Mind/tool
+/src/components/Mind/static
+_test_
+**/style.js
+/src/public-path.js
+
+# 独立包内容
+src/hooks/useWeboffice/PDF/packages/pdf.mjs
+src/hooks/useWeboffice/PDF/packages/pdf.worker.mjs
