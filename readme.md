@@ -2,12 +2,16 @@
 
 a plugin is provided to automatically register service workers and customize the logic for loading and unloading service workers.
 
-由于主流的service worker的plugin并没有提供自动注册的 插件选项。因此提供一个插件用来自动注册service worker，和自定义加载卸载service worker的逻辑
+由于主流的service worker的plugin并没有提供自动注册的 插件选项。
 
-下方是不支持sw自动注入的issue举例
 
 - workbox: https://github.com/GoogleChrome/workbox/issues/3383
 - sw-precache-webpack-plugin: https://github.com/goldhand/sw-precache-webpack-plugin/issues/65
+
+
+因此提供一个插件用来自动注册service worker，
+
+和自定义加载卸载service worker的逻辑
 
 
 
